@@ -8,14 +8,10 @@ connectDB()
 		app.listen(3000, () => console.log("DB connected and server started"))
 	)
 	.catch((err) => console.log(err.message));
+app.use(express.json());
 
 app.post("/signup", async (req, res) => {
-	const userDocument = new User({
-		name: "Fardeen",
-		age: 23,
-		gender: "male",
-		email: "fardeen@.com",
-	});
+	const userDocument = new User(req.body);
 	try {
 		await userDocument.save();
 		res.send("user created");
